@@ -25,7 +25,14 @@ class linvel_warp(warp_function):
         warp_function.__init__(self, 'linvel_warp', 2)
 
     def warp(self, xs, ys, ts, ps, t0, params, compute_grad=False):
-        dt = ts-t0
+
+
+
+        dt = (ts-t0)
+        #dt = (ts-t0)/1000.0
+
+
+
         x_prime = xs-dt*params[0]
         y_prime = ys-dt*params[1]
         jacobian_x, jacobian_y = None, None

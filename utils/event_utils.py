@@ -160,7 +160,7 @@ def events_to_image(xs, ys, ps, sensor_size=(180, 240), interpolation=None, padd
     if interpolation == 'bilinear' and xs.dtype is not torch.long and xs.dtype is not torch.long:
         xt, yt, pt = torch.from_numpy(xs), torch.from_numpy(ys), torch.from_numpy(ps)
         xt, yt, pt = xt.float(), yt.float(), pt.float()
-        img = events_to_image_torch(xt, yt, pt, clip_out_of_range=True, interpolation='bilinear', padding=padding)
+        img = events_to_image_torch(xt, yt, pt, sensor_size=img_size, clip_out_of_range=True, interpolation='bilinear', padding=padding)
         img = img.numpy()
     else:
         coords = np.stack((ys, xs))
@@ -709,7 +709,15 @@ def events_to_voxel(xs, ys, ts, ps, B, sensor_size=(180, 240), temporal_bilinear
     -------
     voxel: voxel of the events between t0 and t1
     """
+
+    # expand dimensions
+    xs = np.expand_dims(xs, axis=1)
+    ys = np.expand_dims(ys, axis=1)
+    ts = np.expand_dims(ts, axis=1)
+    ps = np.expand_dims(ps, axis=1)
+
     assert(len(xs)==len(ys) and len(ys)==len(ts) and len(ts)==len(ps))
+
     num_events_per_bin = len(xs)//B
     bins = []
     dt = ts[-1]-ts[0]
@@ -724,7 +732,7 @@ def events_to_voxel(xs, ys, ts, ps, B, sensor_size=(180, 240), temporal_bilinear
             end = beg + num_events_per_bin
             vb = events_to_image(xs[beg:end], ys[beg:end],
                     weights[beg:end], sensor_size=sensor_size)
-        vb = events_to_image(xs, ys, weights.squeeze(), sensor_size=sensor_size, interpolation=None)
+        vb = events_to_image(xs.squeeze(), ys.squeeze(), weights.squeeze(), sensor_size=sensor_size, interpolation=None)
         bins.append(vb)
     bins = np.stack(bins)
     return bins

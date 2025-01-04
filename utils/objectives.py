@@ -65,8 +65,18 @@ def get_iwe(params, xs, ys, ts, ps, warpfunc, img_size, compute_gradient=False, 
     xs, ys, ts, ps = xs*mask, ys*mask, ts*mask, ps*mask
     if compute_gradient:
         jx, jy = jx*mask, jy*mask
-    iwe, iwe_drv = events_to_image_drv(xs, ys, ps, jx, jy,
+
+
+
+
+    # iwe, iwe_drv = events_to_image_drv(xs, ys, ps, jx, jy,
+    #         interpolation='bilinear', compute_gradient=compute_gradient)
+    iwe, iwe_drv = events_to_image_drv(xs, ys, ps, jx, jy, sensor_size=img_size,
             interpolation='bilinear', compute_gradient=compute_gradient)
+    
+
+
+    
     return iwe, iwe_drv
 
 

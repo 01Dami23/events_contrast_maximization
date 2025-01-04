@@ -147,6 +147,10 @@ if __name__ == "__main__":
     end_idx=start_idx+15000
     blur = None
 
+    print("timestamps:", np.average(ts))
+    print(ts[0:1000])
+    print("num events:", len(xs))
+
     draw_objective_function(xs[start_idx:end_idx], ys[start_idx:end_idx], ts[start_idx:end_idx], ps[start_idx:end_idx], variance_objective(), linvel_warp())
 
     objectives = [r1_objective(), zhu_timestamp_objective(), variance_objective(), sos_objective(), soe_objective(), moa_objective(),
