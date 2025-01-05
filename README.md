@@ -2,9 +2,14 @@
 A python library for contrast maximization and voxel creation using events.
 
 # 1 Contrast maximization on E2Vid reconstructions
-denoise events with: 
+V1 denoise events with (USE V2 FOR NOW): 
 ```
 python utils/denoise_events.py --h5_file_path "/home/dacol/E2VID/e2vid_data/MultiFlow/h5_e2vid_format/00f48a2351f54e56b613840c2a448de7_done.h5" --rec_scene_path "/home/dacol/E2VID/e2vid_data/MultiFlow/results/rec_images/00f48a2351f54e56b613840c2a448de7_done/" --output_scene_path "/home/dacol/E2VID/e2vid_data/MultiFlow/constrast_max_results/rec_images/"
+```
+
+V2 denoise events with (USE V2 FOR NOW):
+```
+python utils/denoise_events_multiflow_v2.py --h5_file_path "/home/dacol/E2VID/e2vid_data/MultiFlow/h5_e2vid_format/00f48a2351f54e56b613840c2a448de7_done.h5" --rec_scene_path "/home/dacol/E2VID/e2vid_data/MultiFlow/results/rec_images/00f48a2351f54e56b613840c2a448de7_done/" --output_scene_path "/home/dacol/E2VID/e2vid_data/MultiFlow/constrast_max_results/rec_images/" --optim_opt "Variance"
 ```
 
 ## Usage
