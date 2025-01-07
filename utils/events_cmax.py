@@ -68,7 +68,10 @@ def optimize_contrast(xs, ys, ts, ps, warp_function, objective, optimizer=opt.fm
         The max arguments for the warp parameters wrt the objective
     """
     args = (xs, ys, ts, ps, warp_function, img_size, blur_sigma)
-    x0 = np.array([0,0])
+
+    # BUG FIX: x0 should not be overwritten if it's not None
+    #x0 = np.array([0,0])
+
     if x0 is None:
         x0 = np.zeros(warp_function.dims)
     if numeric_grads:
