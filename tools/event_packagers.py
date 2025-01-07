@@ -77,7 +77,26 @@ class hdf5_packager(packager):
             if datatype in self.events_file.keys():
                 s = 0
                 added = 0
-                ts = self.events_file["events/ts"][s:s+self.max_buffer_size]
+
+
+
+
+
+                # BUG FIX: The original code was not working correctly when the number of events was larger than the buffer size 
+                # as add_metadata is only called once so this function was only called for the first buffer size events
+                #ts = self.events_file["events/ts"][s:s+self.max_buffer_size]
+                ts = self.events_file["events/ts"][:]
+
+
+
+
+
+
+
+
+
+
+
                 for image in self.events_file[datatype]:
                     img_ts = self.events_file[datatype][image].attrs['timestamp']
                     event_idx = np.searchsorted(ts, img_ts)
