@@ -12,6 +12,16 @@ V2 denoise events with (USE V2 FOR NOW):
 python utils/denoise_events_multiflow_v2.py --h5_file_path "/home/dacol/E2VID/e2vid_data/MultiFlow/h5_e2vid_format/00f48a2351f54e56b613840c2a448de7_done.h5" --rec_scene_path "/home/dacol/E2VID/e2vid_data/MultiFlow/results/rec_images/00f48a2351f54e56b613840c2a448de7_done/" --output_scene_path "/home/dacol/E2VID/e2vid_data/MultiFlow/constrast_max_results/rec_images/" --optim_opt "Variance"
 ```
 
+# 2 ~~Get h5 file compatible with e2vid from MVSEC h5 file~~ not working correctly use ROSBAG for MVSEC
+```
+python tools/mvsec_h5_to_h5.py --input_path "/data/storage/datasets/MVSEC/hdf5/indoor_flying/indoor_flying1_data.hdf5" --output_path "/data/storage/dacol/e2vid_data/h5_mvsec_file/"
+```
+
+# 3 Get h5 file compatible with e2vid from MVSEC rosbag
+```
+python tools/rosbag_to_h5.py /data/storage/dacol/e2vid_data/MVSEC/indoor_flying1_data.bag --output_dir "/data/storage/dacol/e2vid_data/h5_mvsec_file/" --event_topic "/davis/left/events" --image_topic "/davis/left/image_raw" --height 260 --width 346
+```
+
 ## Usage
 To use this library, you need to first convert the events to hdf5 file format. This is necessary because reading the events from rosbag is _painfully_ slow. So use the script in tools/rosbag_to_h5.py like so:
 ```python rosbag_to_h5.py /path/to/your/bag --output_dir /path/to/save/h5/file --event_topic /dvs/events```

@@ -68,6 +68,8 @@ def optimize_contrast(xs, ys, ts, ps, warp_function, objective, optimizer=opt.fm
         The max arguments for the warp parameters wrt the objective
     """
     args = (xs, ys, ts, ps, warp_function, img_size, blur_sigma)
+
+    # BUG x0 is overwritten with 0,0 also when it should have a meaningful value when calling optimize_contrast the second time in optimize_r2
     x0 = np.array([0,0])
     if x0 is None:
         x0 = np.zeros(warp_function.dims)
@@ -146,10 +148,6 @@ if __name__ == "__main__":
     start_idx = 20000
     end_idx=start_idx+15000
     blur = None
-
-    print("timestamps:", np.average(ts))
-    print(ts[0:1000])
-    print("num events:", len(xs))
 
     draw_objective_function(xs[start_idx:end_idx], ys[start_idx:end_idx], ts[start_idx:end_idx], ps[start_idx:end_idx], variance_objective(), linvel_warp())
 
